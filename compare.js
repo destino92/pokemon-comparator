@@ -1,61 +1,44 @@
+
 import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
 
-// Fonction appelée lors du clic sur le bouton
-function comparePokemon() {
-  const pokemon1Name = document.getElementById("pokemon1").value.toLowerCase();
-  const pokemon2Name = document.getElementById("pokemon2").value.toLowerCase();
+// Fonction appelée après le chargement des données des deux Pokémon
+export function comparePokemon(pokemon1Data, pokemon2Data, typeColors) {
 
-  if (!pokemon1Name || !pokemon2Name) {
-    alert("Veuillez entrer les noms des Pokémon");
-    return;
-  }
-
-  // URL de l'API pour récupérer les données des deux Pokémon
-  const pokemonUrls = [
-    `https://pokeapi-proxy.freecodecamp.rocks/api/pokemon/${pokemon1Name}`,
-    `https://pokeapi-proxy.freecodecamp.rocks/api/pokemon/${pokemon2Name}`
-  ];
-
-  Promise.all(pokemonUrls.map(url => fetch(url).then(res => res.json())))
-    .then(pokemonData => {
-      // Extraction des statistiques souhaitées pour chaque Pokémon
-      const stats = pokemonData.map(pokemon => ({
-        name: pokemon.name,
-        hp: pokemon.stats.find(stat => stat.stat.name === "hp").base_stat,
-        attack: pokemon.stats.find(stat => stat.stat.name === "attack").base_stat,
-        defense: pokemon.stats.find(stat => stat.stat.name === "defense").base_stat,
-        speed: pokemon.stats.find(stat => stat.stat.name === "speed").base_stat
-      }));
-
+      if (!pokemon1Data || !pokemon2Data) return;
       // Formatage des données pour RadarChart : tableau de deux séries de {axis, value}
       const radarData = [
         [
-          { axis: "HP", value: stats[0].hp },
-          { axis: "Attack", value: stats[0].attack },
-          { axis: "Defense", value: stats[0].defense },
-          { axis: "Speed", value: stats[0].speed }
+          { axis: "HP", value: pokemon1Data.hp },
+          { axis: "Attack", value: pokemon1Data.attack },
+          { axis: "Defense", value: pokemon1Data.defense },
+          { axis: 'Sp. Atk', value: pokemon1Data.sp_atk },
+          { axis: 'Sp. Def', value: pokemon1Data.sp_def },
+          { axis: "Speed", value: pokemon1Data.speed }
         ],
         [
-          { axis: "HP", value: stats[1].hp },
-          { axis: "Attack", value: stats[1].attack },
-          { axis: "Defense", value: stats[1].defense },
-          { axis: "Speed", value: stats[1].speed }
+          { axis: "HP", value: pokemon2Data.hp },
+          { axis: "Attack", value: pokemon2Data.attack },
+          { axis: "Defense", value: pokemon2Data.defense },
+          { name: 'Sp. Atk', value: pokemon2Data.sp_atk },
+          { name: 'Sp. Def', value: pokemon2Data.sp_def },
+          { axis: "Speed", value: pokemon2Data.speed }
         ]
       ];
 
       // Calcul de la valeur maximale parmi les stats pour l'échelle
       const maxStat = Math.max(
-        stats[0].hp, stats[0].attack, stats[0].defense, stats[0].speed,
-        stats[1].hp, stats[1].attack, stats[1].defense, stats[1].speed
+        pokemon1Data.hp, pokemon1Data.attack, pokemon1Data.defense, pokemon1Data.sp_atk, pokemon1Data.sp_def, pokemon1Data.speed,
+        pokemon2Data.hp, pokemon2Data.attack, pokemon2Data.defense, pokemon1Data.sp_atk, pokemon1Data.sp_def,pokemon2Data.speed
       );
 
+      console.log(pokemon1Data);
       // Options de configuration pour le RadarChart
       const options = {
-        w: 700,  // Augmentation de la largeur pour laisser de la place aux labels
-        h: 700,  // Augmentation de la hauteur
-        margin: { top: 50, right: 50, bottom: 50, left: 50 },
+        w: 300,  // Augmentation de la largeur pour laisser de la place aux labels
+        h: 300,  // Augmentation de la hauteur
+        margin: { top: 50, right: 20, bottom: 50, left: 20 },
         levels: 5,
-        maxValue: maxStat,
+        maxValue: 200,
         labelFactor: 1.1,  // Légèrement réduit pour que les labels ne dépassent pas
         wrapWidth: 60,
         opacityArea: 0.35,
@@ -63,31 +46,27 @@ function comparePokemon() {
         opacityCircles: 0.1,
         strokeWidth: 2,
         roundStrokes: false,
-        color: d3.scaleOrdinal(d3.schemeCategory10)
-      };
+        color: d3.scaleOrdinal([`${typeColors[pokemon1Data.types[0].type.name]}`, `${typeColors[pokemon2Data.types[0].type.name]}`])
+      }
+
+
+      const stats = [pokemon1Data, pokemon2Data];
 
       // Dessiner le radar
       RadarChart("#radar-chart-container", radarData, options);
       
       // Ajouter la légende sous le graphique
       addLegend("#radar-chart-container", stats, options);
-    })
-    .catch(error => {
-      alert("Impossible de trouver les données, vérifiez les noms des Pokémon");
-      console.error(error);
-    });
 }
-
-// Expose la fonction au niveau global pour l'appel depuis le HTML
-window.comparePokemon = comparePokemon;
 
 //////////////////////////////////////////////////////////
 // Fonction RadarChart (adaptée de Nadieh Bremer)
 //////////////////////////////////////////////////////////
 function RadarChart(id, data, options) {
+
   var cfg = {
-    w: 600,
-    h: 600,
+    w: 300,
+    h: 300,
     margin: { top: 20, right: 20, bottom: 20, left: 20 },
     levels: 3,
     maxValue: 0,
@@ -100,6 +79,23 @@ function RadarChart(id, data, options) {
     roundStrokes: false,
     color: d3.scaleOrdinal(d3.schemeCategory10)
   };
+
+  if (window.innerWidth < 480) {
+    cfg.w = 150;
+    cfg.h = 150;
+    options.w = 150;
+    options.h = 150;
+  } else if (window.innerWidth < 768) {
+    cfg.w = 300;
+    cfg.h = 300;
+    options.w = 300;
+    options.h = 300;
+  } else {
+    cfg.w = 400;
+    cfg.h = 400;
+    options.w = 300;
+    options.h = 300;
+  }
 
   // Incorporer les options fournies
   if (typeof options !== "undefined") {
@@ -134,9 +130,10 @@ function RadarChart(id, data, options) {
 
   // Création du SVG
   var svg = d3.select(id).append("svg")
-    .attr("width", cfg.w + cfg.margin.left + cfg.margin.right)
-    .attr("height", cfg.h + cfg.margin.top + cfg.margin.bottom)
+    .style("width", cfg.w + cfg.margin.top + cfg.margin.bottom)
+    .style("height", cfg.h + cfg.margin.top + cfg.margin.bottom)
     .attr("class", "radar" + id);
+
 
   // Groupe principal centré
   var g = svg.append("g")

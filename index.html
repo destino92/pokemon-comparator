@@ -27,13 +27,41 @@
 
         <section class="pokemon-data-section">
             <div class="pokemon-card" id="pokemon1-card">
-                <div class="loading">Loading...</div>
+              <div class="loading">Loading...</div>
             </div>
             <div class="pokemon-card" id="pokemon2-card">
-                <div class="loading">Loading...</div>
+              <div class="loading">Loading...</div>
             </div>
         </section>
+
+        <section class="comparison-card" id="comparison-card">
+            <h2>Comparison</h2>
+            <div class="comparison-content">
+              <div class="comparison-chart-container">
+                <div id="radar-chart-container"></div>
+              </div>
+              <div class="comparison-stats">
+                <div class="legend">
+                  <div class="legend-item" id="pokemon-1-legend">
+                    <div class="color-box"></div>
+                    <span id="pokemon1-name">Pokemon 1</span>
+                    <span id="pokemon1-total" class="total-stats">Total: 0</span>
+                  </div>
+                  <div class="legend-item" id="pokemon-2-legend">
+                    <div class="color-box"></div>
+                    <span id="pokemon2-name">Pokemon 2</span>
+                    <span id="pokemon2-total" class="total-stats">Total: 0</span>
+                  </div>
+                </div>
+                
+                <div class="winner" id="winner">
+                  <!-- Stat comparisons will be inserted here -->
+                </div>
+              </div>
+            </div>
+          </div>
     </main>
-    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7/+esm"></script>
+    <script type="module" src="script.js"></script>
 </body>
 </html>
