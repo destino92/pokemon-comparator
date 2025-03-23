@@ -80,11 +80,19 @@ async function fetchPokemon(name, pokemonNumber) {
   // Set loading state
   if (pokemonNumber === 1) {
     isLoading1 = true;
-    pokemon1Card.innerHTML = '<div class="loading">Loading...</div>';
+    pokemon1Card.innerHTML = `
+      <div class="loading">
+        <img src="./assets/pokeball.svg" alt="pokeball" class="pokeball" />
+      </div>
+    `;
     pokemon1Button.disabled = true;
   } else {
     isLoading2 = true;
-    pokemon2Card.innerHTML = '<div class="loading">Loading...</div>';
+    pokemon2Card.innerHTML = `
+      <div class="loading">
+        <img src="./assets/pokeball.svg" alt="pokeball" class="pokeball" />
+      </div>
+    `;
     pokemon2Button.disabled = true;
   }
   
@@ -133,16 +141,16 @@ async function fetchPokemon(name, pokemonNumber) {
     // Show error message
     if (pokemonNumber === 1) {
       pokemon1Card.innerHTML = `
-        <div class="loading">
-          Pokemon not found. Please try another name.
-          <div class="error-message">${error.message}</div>
+        <div class="error">
+          <img src="./assets/pokeball-dark.svg" alt="pokeball" class="pokeball-dark" />
+          <h2 class="error-message">Pokemon not found. Please try another name.</h2>
         </div>
       `;
     } else {
       pokemon2Card.innerHTML = `
-        <div class="loading">
-          Pokemon not found. Please try another name.
-          <div class="error-message">${error.message}</div>
+        <div class="error">
+          <img src="./assets/pokeball-dark.svg" alt="pokeball" class="pokeball-dark" />
+          <h2 class="error-message">Pokemon not found. Please try another name.</h2>
         </div>
       `;
     }
