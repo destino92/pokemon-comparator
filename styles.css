@@ -440,6 +440,7 @@ model-viewer {
 .tooltip {
     fill: #333333;
 }
+  
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
