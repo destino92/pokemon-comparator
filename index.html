@@ -1,11 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pokemon Comparator</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pokemon Radar Chart Comparison</title>
 </head>
 <body>
-    
+  <h1>Comparaison des Pokémon</h1>
+  <label for="pokemon1">Pokemon 1:</label>
+  <input type="text" id="pokemon1" placeholder="Nom du Pokémon 1" />
+  <br />
+  <label for="pokemon2">Pokemon 2:</label>
+  <input type="text" id="pokemon2" placeholder="Nom du Pokémon 2" />
+  <br />
+  <button onclick="comparePokemon()">Comparer</button>
+
+  <div id="radar-chart-container"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/d3@7/+esm"></script>
+  <script type="module" src="compare.js"></script>
 </body>
 </html>
