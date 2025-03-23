@@ -1,23 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pokemon Radar Chart Comparison</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokemon Stats Comparison</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
+    </style>
+    <link rel="stylesheet" href="styles.css">
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
 </head>
-<body>
-  <h1>Comparaison des Pokémon</h1>
-  <label for="pokemon1">Pokemon 1:</label>
-  <input type="text" id="pokemon1" placeholder="Nom du Pokémon 1" />
-  <br />
-  <label for="pokemon2">Pokemon 2:</label>
-  <input type="text" id="pokemon2" placeholder="Nom du Pokémon 2" />
-  <br />
-  <button onclick="comparePokemon()">Comparer</button>
+<body class="text-regular">
+    <main class="container">
+        <h1>Pokemon Comparison</h1>
+        
+        <section class="search-section">
+            <div class="search-box">
+                <input type="text" id="pokemon1-search" placeholder="Enter Pokemon name" value="pikachu">
+                <button id="pokemon1-button">🔍 Search</button>
+            </div>
+            <div class="search-box">
+                <input type="text" id="pokemon2-search" placeholder="Enter Pokemon name" value="venusaur">
+                <button id="pokemon2-button">🔍 Search</button>
+            </div>
+        </section>
 
-  <div id="radar-chart-container"></div>
-
-  <script src="https://cdn.jsdelivr.net/npm/d3@7/+esm"></script>
-  <script type="module" src="compare.js"></script>
+        <section class="pokemon-data-section">
+            <div class="pokemon-card" id="pokemon1-card">
+                <div class="loading">Loading...</div>
+            </div>
+            <div class="pokemon-card" id="pokemon2-card">
+                <div class="loading">Loading...</div>
+            </div>
+        </section>
+    </main>
+    <script src="script.js"></script>
 </body>
 </html>
