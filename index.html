@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokemon Stats Comparison</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
+    </style>
+    <link rel="stylesheet" href="styles.css">
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
+</head>
+<body class="text-regular">
+    <main class="container">
+        <h1>Pokemon Comparison</h1>
+        
+        <section class="search-section">
+            <div class="search-box">
+                <input type="text" id="pokemon1-search" placeholder="Enter Pokemon name" value="pikachu">
+                <button id="pokemon1-button">🔍 Search</button>
+            </div>
+            <div class="search-box">
+                <input type="text" id="pokemon2-search" placeholder="Enter Pokemon name" value="venusaur">
+                <button id="pokemon2-button">🔍 Search</button>
+            </div>
+        </section>
+
+        <section class="pokemon-data-section">
+            <div class="pokemon-card" id="pokemon1-card">
+              <div class="loading">Loading...</div>
+            </div>
+            <div class="pokemon-card" id="pokemon2-card">
+              <div class="loading">Loading...</div>
+            </div>
+        </section>
+
+        <section class="comparison-card" id="comparison-card">
+            <h2>Comparison</h2>
+            <div class="comparison-content">
+              <div class="comparison-chart-container">
+                <div id="radar-chart-container"></div>
+              </div>
+              <div class="comparison-stats">
+                <div class="legend">
+                  <div class="legend-item" id="pokemon-1-legend">
+                    <div class="color-box"></div>
+                    <span id="pokemon1-name">Pokemon 1</span>
+                    <span id="pokemon1-total" class="total-stats">Total: 0</span>
+                  </div>
+                  <div class="legend-item" id="pokemon-2-legend">
+                    <div class="color-box"></div>
+                    <span id="pokemon2-name">Pokemon 2</span>
+                    <span id="pokemon2-total" class="total-stats">Total: 0</span>
+                  </div>
+                </div>
+                
+                <div class="winner" id="winner">
+                  <!-- Stat comparisons will be inserted here -->
+                </div>
+              </div>
+            </div>
+          </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7/+esm"></script>
+    <script type="module" src="script.js"></script>
+</body>
+</html>
