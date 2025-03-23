@@ -58,6 +58,7 @@
 body {
     background: #fff url(https://assets.pokemon.com/static2/_ui/img/chrome/container_bg.png);
     padding: 20px;
+    color: #333;
 }
 
 .container {
@@ -68,7 +69,11 @@ body {
 h1 {
     text-align: center;
     margin-bottom: 30px;
-    color: #333;
+}
+
+.intro {
+    margin-bottom: 30px;
+    text-align: center;
 }
 
 .search-section {
@@ -140,9 +145,14 @@ button:disabled {
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    min-height: 500px;
+    min-height: 300px;
     display: flex;
     flex-direction: column;
+}
+
+.pokeball {
+    width: 200px;
+    height: 200px;
 }
 
 .pokemon-header {
@@ -154,9 +164,11 @@ button:disabled {
 
 .pokemon-header-bg {
     position: absolute;
-    right: 8px;
-    top: 8px;
+    right: -80px;
+    top: -100px;
     opacity: 0.3;
+    width: 500px;
+    height: 500px;
 }
   
 .pokemon-name {
@@ -297,12 +309,29 @@ model-viewer {
     height: 100%;
     font-size: 18px;
     color: #666;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.error {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.pokeball-dark {
+    width: 200px;
+    height: 200px;
 }
   
 .error-message {
     color: #e11d48;
     margin-top: 10px;
-    font-size: 14px;
 }
 
 /* Comparison Card */
@@ -399,6 +428,10 @@ model-viewer {
 .dark { background-color: #705848; }
 .steel { background-color: #B8B8D0; }
 .fairy { background-color: #EE99AC; }
+
+.hidden {
+    display: none;
+}
 
 .legend {
     fill: #333333;
